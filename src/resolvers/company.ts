@@ -3,6 +3,7 @@ import {createCompany, getAllCompanies, getCompanyByID} from "../firebase";
 import {firestore} from "firebase-admin";
 import DocumentData = firestore.DocumentData;
 import {Company} from "../objects/company";
+import {Product, products} from "../objects/product";
 
 @ObjectType()
 @InputType('FiltersInput')
@@ -17,6 +18,13 @@ export class Filter {
 
 @Resolver()
 export class CompanyResolver{
+    @Query(() => [Product])
+    getProductMeta(
+
+    ): Product[]{
+        setTimeout(() => console.log('5 sercs'), 5000)
+        return products
+    }
     @Query(() => Company, {nullable: true})
     async company(
         @Arg('id') id: string
