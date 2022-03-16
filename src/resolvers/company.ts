@@ -22,7 +22,7 @@ export class CompanyResolver{
     getProductMeta(
 
     ): Product[]{
-        setTimeout(() => console.log('5 sercs'), 5000)
+        setTimeout(() => console.log('5 sercs'), 60000)
         return products
     }
     @Query(() => Company, {nullable: true})
