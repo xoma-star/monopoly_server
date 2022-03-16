@@ -26,8 +26,10 @@ export class Company {
     warehouses: Warehouse[]
     @Field({description: 'дата основания компании'})
     registered: number
-    @Field(() => Production, {description: 'производство', nullable: true})
+    @Field(() => Production, {description: 'производство deprecated', nullable: true})
     production: Production | null
     @Field(() => [Contract], {description: 'контракты'})
     contracts: Contract[]
+    @Field(() => [String], {description: 'id производственных линий'})
+    prodLines: string[]
 }

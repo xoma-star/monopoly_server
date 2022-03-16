@@ -1,5 +1,5 @@
 import {Arg, Field, InputType, Int, Mutation, ObjectType, Query, Resolver} from 'type-graphql'
-import {createCompany, getAllCompanies, getCompanyByID} from "../firebase";
+import {createCompany, createProdLine, getAllCompanies, getCompanyByID} from "../firebase";
 import {firestore} from "firebase-admin";
 import DocumentData = firestore.DocumentData;
 import {Company} from "../objects/company";
@@ -22,7 +22,6 @@ export class CompanyResolver{
     getProductMeta(
 
     ): Product[]{
-        setTimeout(() => console.log('5 sercs'), 60000)
         return products
     }
     @Query(() => Company, {nullable: true})
@@ -72,5 +71,11 @@ export class CompanyResolver{
     ): Promise<string>{
         const a = await createCompany({name, logo, location, owner})
         return a.id
+    }
+    @Mutation(() => Number)
+    async createProdLine(
+        @Arg('companyID') companyID: string
+    ): Promise<number>{
+        return await createProdLine(companyID)
     }
 }

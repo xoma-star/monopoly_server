@@ -6,13 +6,14 @@ import {CompanyResolver} from "./resolvers/company"
 import 'reflect-metadata'
 import cors from 'cors'
 import {UserResolver} from "./resolvers/user";
+import {ProdLinesResolver} from "./resolvers/prodLines";
 // import path from 'path'
 
 const main = async() => {
     const app = express()
     const apolloServer = new ApolloServer({
         schema: await buildSchema({
-            resolvers: [CompanyResolver, UserResolver],
+            resolvers: [CompanyResolver, UserResolver, ProdLinesResolver],
             validate: false
         })
     })
