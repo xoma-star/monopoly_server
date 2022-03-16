@@ -51,7 +51,8 @@ export class CompanyResolver{
                 production: data.production,
                 registered: data.registered,
                 warehouses: data.warehouses,
-                workers: data.workers
+                workers: data.workers,
+                prodLines: data.prodLines
             }
         })
         const nameFilter = filters?.find((v: Filter) => v.field === 'name')?.value

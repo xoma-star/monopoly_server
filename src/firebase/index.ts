@@ -37,7 +37,8 @@ export const createCompany = async (props: comapyCreateProps) => {
         debt: [],
         production: null,
         contracts: [],
-        balance: 0
+        balance: 0,
+        prodLines: []
     }
     return await admin.firestore().collection('companies').add(data)
 }
