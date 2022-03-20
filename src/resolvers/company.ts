@@ -1,5 +1,5 @@
 import {Arg, Field, InputType, Int, Mutation, ObjectType, Query, Resolver} from 'type-graphql'
-import {createCompany, createProdLine, getAllCompanies, getCompanyByID} from "../firebase";
+import {createCompany, createProdLine, editCompanyData, getAllCompanies, getCompanyByID} from "../firebase";
 import {firestore} from "firebase-admin";
 import DocumentData = firestore.DocumentData;
 import {Company} from "../objects/company";
@@ -12,8 +12,8 @@ export class Filter {
     field: string
     @Field()
     condition: "<" | "<=" | "==" | "!=" | ">=" | ">" | "array-contains" | "in" | "not-in" | "array-contains-any"
-    @Field()
-    value: string
+    @Field(() => String || Boolean || Number)
+    value: string | boolean | number
 }
 
 @Resolver()
@@ -52,13 +52,14 @@ export class CompanyResolver{
                 registered: data.registered,
                 warehouses: data.warehouses,
                 workers: data.workers,
-                prodLines: data.prodLines
+                prodLines: data.prodLines,
+                recruiting: data.recruiting,
+                summaries: data.summaries
             }
         })
         const nameFilter = filters?.find((v: Filter) => v.field === 'name')?.value
         if(nameFilter) allData = allData.filter((v: Company) => {
-            return v.name.toLowerCase().indexOf(nameFilter.toLowerCase()) > -1;
-
+            return v.name.toLowerCase().indexOf(nameFilter.toString().toLowerCase()) > -1;
         })
         return allData
     }
@@ -78,5 +79,13 @@ export class CompanyResolver{
         @Arg('companyID') companyID: string
     ): Promise<number>{
         return await createProdLine(companyID)
+    }
+    @Mutation(() => Number)
+    async switchRecruiting(
+        @Arg('companyID') companyID: string,
+        @Arg('value') value: boolean
+    ): Promise<number>{
+        await editCompanyData(companyID, {recruiting: value})
+        return 1
     }
 }

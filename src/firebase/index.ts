@@ -28,17 +28,16 @@ interface comapyCreateProps {
 export const createCompany = async (props: comapyCreateProps) => {
     const data: Company = {
         ...props,
-        workers: {
-            highEducated: 0,
-            total: 0
-        },
+        workers: [],
         warehouses: [],
         registered: new Date().getTime(),
         debt: [],
         production: null,
         contracts: [],
         balance: 0,
-        prodLines: []
+        prodLines: [],
+        recruiting: false,
+        summaries: []
     }
     return await admin.firestore().collection('companies').add(data)
 }

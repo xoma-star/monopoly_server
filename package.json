@@ -8,7 +8,8 @@
     "prod": "node dist/index.js",
     "watch": "tsc -w",
     "dev": "nodemon dist/index.js",
-    "build": "tsc"
+    "build": "tsc",
+    "recruit": "node dist/scripts/sendSummary.js"
   },
   "author": "",
   "license": "ISC",

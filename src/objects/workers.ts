@@ -1,9 +1,15 @@
 import {Field, ObjectType} from "type-graphql";
 
 @ObjectType()
-export class Workers{
+export class Worker{
     @Field()
-    total: number
+    salary: number
     @Field()
-    highEducated: number
+    highEducated: boolean
+    @Field()
+    name: string
+    @Field()
+    baseProduction: number
+    @Field()
+    gender: 'female' | 'male'
 }

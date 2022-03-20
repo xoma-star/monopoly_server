@@ -1,6 +1,6 @@
 import {Field, ObjectType} from "type-graphql";
 import {Warehouse} from "./warehouse";
-import {Workers} from "./workers";
+import {Worker} from "./workers";
 import {Production} from "./product";
 import {Contract} from "./contract";
 
@@ -16,8 +16,8 @@ export class Company {
     logo: string
     @Field({description: 'название компании'})
     name: string
-    @Field(() => Workers, {description: 'рабочая сила'})
-    workers: Workers
+    @Field(() => [Worker], {description: 'рабочие'})
+    workers: Worker[]
     @Field({description: 'кол-во средств на балансе компании'})
     balance: number
     @Field(() => Number,{description: 'долг'})
@@ -32,4 +32,8 @@ export class Company {
     contracts: Contract[]
     @Field(() => [String], {description: 'id производственных линий'})
     prodLines: string[]
+    @Field({description: 'ведется ли прием резюме'})
+    recruiting: boolean
+    @Field(() => [Worker],{description: 'текущие резюме'})
+    summaries: Worker[]
 }
