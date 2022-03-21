@@ -23,6 +23,7 @@
     "graphql": "^15.8.0",
     "graphql-subscriptions": "^2.0.0",
     "nodemon": "^2.0.15",
+    "object-hash": "^3.0.0",
     "reflect-metadata": "^0.1.13",
     "ts-node": "^10.7.0",
     "type-graphql": "^1.1.1"

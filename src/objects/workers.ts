@@ -12,4 +12,6 @@ export class Worker{
     baseProduction: number
     @Field()
     gender: 'female' | 'male'
+    @Field()
+    hash: string
 }

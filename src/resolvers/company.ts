@@ -4,6 +4,7 @@ import {firestore} from "firebase-admin";
 import DocumentData = firestore.DocumentData;
 import {Company} from "../objects/company";
 import {Product, products} from "../objects/product";
+import {Worker} from "../objects/workers";
 
 @ObjectType()
 @InputType('FiltersInput')
@@ -87,5 +88,18 @@ export class CompanyResolver{
     ): Promise<number>{
         await editCompanyData(companyID, {recruiting: value})
         return 1
+    }
+    @Mutation(() => [Worker])
+    async recruit(
+        @Arg('companyID') companyID: string,
+        @Arg('workerHash') workerHash: string
+    ): Promise<Worker[]>{
+        const companyData = await getCompanyByID(companyID)
+        const newSummaries = [...companyData?.data()?.summaries]
+        const newWorkers = [...companyData?.data()?.workers, newSummaries.find(v => v.hash === workerHash)]
+        let i = newSummaries.findIndex(v => v.hash === workerHash)
+        if(i > -1) newSummaries.splice(i, 1)
+        await editCompanyData(companyID, {summaries: newSummaries, workers: newWorkers})
+        return <Worker[]> newSummaries
     }
 }
